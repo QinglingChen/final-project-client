@@ -100,3 +100,39 @@ export const fetchStudentThunk = id => async dispatch => {  // The THUNK
     console.error(err);
   }
 };
+
+export const addCampusThunk = (campus) => {
+  return (dispatch) => {
+    // Your logic to add campus (e.g., API call)
+    dispatch({ type: 'ADD_CAMPUS', payload: campus });
+  };
+};
+
+export const deleteCampusThunk = (campusId) => {
+  return (dispatch) => {
+    // Your logic to delete a campus (e.g., API call)
+    dispatch({ type: 'DELETE_CAMPUS', payload: campusId });
+  };
+};
+
+// export const editCampusThunk = (updatedCampus) => {
+//   return (dispatch) => {
+//     dispatch({ type: 'EDIT_CAMPUS', payload: updatedCampus });
+//   };
+// };
+
+// Updated editCampusThunk with an async API call
+export const editCampusThunk = (updatedCampus) => async (dispatch) => {
+  try {
+    // API "put" call to update campus based on "id" and the campus object
+    let response = await axios.put(`/api/campuses/${updatedCampus.id}`, updatedCampus);
+    
+    // Assuming the response contains the updated campus, dispatch the action
+    dispatch({
+      type: 'EDIT_CAMPUS',
+      payload: response.data,  // Ensure that response.data contains the updated campus
+    });
+  } catch (err) {
+    console.error("Error updating campus:", err);
+  }
+};
