@@ -32,6 +32,7 @@ const AllStudentsView = (props) => {
               <Link to={`/student/${student.id}`}>
                 <h2>{name}</h2>
               </Link>
+              {/* Delete button for each student */}
               <button onClick={() => deleteStudent(student.id)}>Delete</button>
               <hr/>
             </div>
@@ -39,6 +40,7 @@ const AllStudentsView = (props) => {
         }
       )}
       <br/>
+      {/* Link to add a new student */}
       <Link to={`/newstudent`}>
         <button>Add New Student</button>
       </Link>

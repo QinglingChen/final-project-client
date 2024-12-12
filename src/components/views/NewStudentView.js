@@ -35,7 +35,7 @@ const useStyles = makeStyles( () => ({
 }));
 
 const NewStudentView = (props) => {
-  const {handleChange, handleSubmit } = props;
+  const {handleChange, handleSubmit, formData, errors } = props;
   const classes = useStyles();
 
   // Render a New Student view with an input form
@@ -51,16 +51,54 @@ const NewStudentView = (props) => {
             </Typography>
           </div>
           <form style={{textAlign: 'center'}} onSubmit={(e) => handleSubmit(e)}>
+            {/**first name */}
             <label style= {{color:'#11153e', fontWeight: 'bold'}}>First Name: </label>
             <input type="text" name="firstname" onChange ={(e) => handleChange(e)} />
             <br/>
             <br/>
 
+            {/** last*/}
             <label style={{color:'#11153e', fontWeight: 'bold'}}>Last Name: </label>
             <input type="text" name="lastname" onChange={(e) => handleChange(e)} />
             <br/>
             <br/>
+            {/** email*/}
+            <label style={{ color: '#11153e', fontWeight: 'bold' }}>Email: </label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            {errors.email && <div className={classes.error}>{errors.email}</div>}
+            <br />
+            <br />
 
+            {/** image URL*/}
+            <label style={{ color: '#11153e', fontWeight: 'bold' }}>Image URL: </label>
+            <input
+              type="text"
+              name="imageUrl"
+              value={formData.imageUrl}
+              onChange={handleChange}
+            />
+            {errors.imageUrl && <div className={classes.error}>{errors.imageUrl}</div>}
+            <br />
+            <br />
+
+            {/** GPA*/}
+            <label style={{ color: '#11153e', fontWeight: 'bold' }}>GPA: </label>
+            <input
+              type="text"
+              name="gpa"
+              value={formData.gpa}
+              onChange={handleChange}
+            />
+            {errors.gpa && <div className={classes.error}>{errors.gpa}</div>}
+            <br />
+            <br />
+
+            {/** Campus ID/name depending on the implementation.)*/}
             <label style={{color:'#11153e', fontWeight: 'bold'}}>Campus Id: </label>
             <input type="text" name="campusId" onChange={(e) => handleChange(e)} />
             <br/>
