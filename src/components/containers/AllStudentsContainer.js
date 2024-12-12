@@ -25,6 +25,16 @@ class AllStudentsContainer extends Component {
 
   // Render All Students view by passing all students data as props to the corresponding View component
   render(){
+    // Display loading state
+    if (this.props.isLoading) {
+      return <div>Loading...</div>;
+    }
+
+    // Display error state if fetching fails
+    if (this.props.error) {
+      return <div>Error: {this.props.error}</div>;
+    }
+
     return(
       <div>
         <Header />
@@ -43,6 +53,8 @@ class AllStudentsContainer extends Component {
 const mapState = (state) => {
   return {
     allStudents: state.allStudents,  // Get the State object from Reducer "allStudents"
+    isLoading: state.isLoading,     // Loading state
+    error: state.error,             // Error state
   };
 };
 // 2. The "mapDispatch" argument is used to dispatch Action (Redux Thunk) to Redux Store.

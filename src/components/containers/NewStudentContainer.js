@@ -22,7 +22,12 @@ class NewStudentContainer extends Component {
       lastname: "", 
       campusId: null, 
       redirect: false, 
-      redirectId: null
+      redirectId: null,
+      //new add
+      email:'',
+      gpa:'',
+      imageUrl: '',
+      errors:{},
     };
   }
 
@@ -33,14 +38,50 @@ class NewStudentContainer extends Component {
     });
   }
 
+  // Validate form before submission
+  validateForm = () => 
+  {
+    const { firstname, lastname, email, gpa, imageUrl, campusId } = this.state;
+    const errors = {};
+
+    // Simple validation for required fields and email format
+    if (!firstname) errors.firstname = 'First name is required';
+    if (!lastname) errors.lastname = 'Last name is required';
+    if (!email) {
+      errors.email = 'Email is required';
+    } 
+    else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = 'Invalid email format';
+    }
+    if (!gpa || isNaN(gpa) || gpa < 0 || gpa > 4) {
+      errors.gpa = 'GPA must be a number between 0 and 4';
+    }
+    if (imageUrl && !/^https?:\/\/.*\.(jpeg|jpg|png|gif)$/i.test(imageUrl)) {
+      errors.imageUrl = 'Invalid image URL format';
+    }
+    if (!campusId) errors.campusId = 'Campus ID is required';
+
+    this.setState({ errors });
+    return Object.keys(errors).length === 0;
+  };
+
+
   // Take action after user click the submit button
   handleSubmit = async event => {
     event.preventDefault();  // Prevent browser reload/refresh after submit.
 
+    if (!this.validateForm()) return;
+
     let student = {
         firstname: this.state.firstname,
         lastname: this.state.lastname,
-        campusId: this.state.campusId
+        campusId: this.state.campusId,
+
+        email: this.state.email,
+        gpa:this.state.gpa,
+        imageUrl: this.state.imageUrl,
+        errors:this.state.errors,
+
     };
     
     // Add new student in back-end database
@@ -52,7 +93,12 @@ class NewStudentContainer extends Component {
       lastname: "", 
       campusId: null, 
       redirect: true, 
-      redirectId: newStudent.id
+      redirectId: newStudent.id,
+
+      email: '',
+      gpa:'',
+      imageUrl: '',
+      errors:{},
     });
   }
 
@@ -74,7 +120,9 @@ class NewStudentContainer extends Component {
         <Header />
         <NewStudentView 
           handleChange = {this.handleChange} 
-          handleSubmit={this.handleSubmit}      
+          handleSubmit={this.handleSubmit}  
+          formData={this.state}
+          errors={this.state.errors}
         />
       </div>          
     );

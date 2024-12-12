@@ -11,6 +11,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { fetchAllCampusesThunk } from "../../store/thunks";
 import { AllCampusesView } from "../views";
+import { deleteCampusThunk } from "../../store/thunks";
 
 class AllCampusesContainer extends Component {
   // Get all campuses data from back-end database
@@ -26,6 +27,8 @@ class AllCampusesContainer extends Component {
         <Header />
         <AllCampusesView
           allCampuses={this.props.allCampuses}
+          deleteCampus={this.props.deleteCampus} // transfer delete function
+          refreshCampuses={this.props.fetchAllCampuses} // transfer refresh function
         />
       </div>
     );
@@ -45,6 +48,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchAllCampuses: () => dispatch(fetchAllCampusesThunk()),
+    deleteCampus: (id) => dispatch(deleteCampusThunk(id)), //Binding deletion function
   };
 };
 

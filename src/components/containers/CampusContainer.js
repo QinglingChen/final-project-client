@@ -11,6 +11,8 @@ import { connect } from "react-redux";
 import { fetchCampusThunk } from "../../store/thunks";
 
 import { CampusView } from "../views";
+import { addStudentThunk, deleteStudentThunk } from "../../store/thunks";
+
 
 class CampusContainer extends Component {
   // Get the specific campus data from back-end database
@@ -24,7 +26,11 @@ class CampusContainer extends Component {
     return (
       <div>
         <Header />
-        <CampusView campus={this.props.campus} />
+        <CampusView 
+        campus={this.props.campus} 
+        addStudentToCampus={this.props.addStudent} // tranfer add student function
+        removeStudentFromCampus={this.props.removeStudent} // tranfer remove student function
+        />
       </div>
     );
   }
@@ -43,6 +49,8 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchCampus: (id) => dispatch(fetchCampusThunk(id)),
+    addStudent: (student) => dispatch(addStudentThunk(student)), // binding add student function
+    removeStudent: (studentId) => dispatch(deleteStudentThunk(studentId)), // binding remove student function
   };
 };
 
