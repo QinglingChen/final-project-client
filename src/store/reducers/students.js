@@ -7,8 +7,11 @@ It also defines the State and its default initial value.
 ================================================== */
 import * as at from "../actions/actionTypes";  // Import Action Types ("at" keyword for Action Type)
 
+// Initial State - Start with an empty array of students
+const initialState = [];
+
 // REDUCER:
-const allStudents = (state=[], action) => {  // Empty array as default Initial State
+const allStudents = (state=initialState, action) => {  // Empty array as default Initial State
   switch (action.type) {
     case at.FETCH_ALL_STUDENTS:
       return action.payload;
