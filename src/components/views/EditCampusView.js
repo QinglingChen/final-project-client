@@ -8,6 +8,8 @@ import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom"; // Import Link to navigate to homepage
+
 
 // Create styling for the input form
 const useStyles = makeStyles(() => ({
@@ -160,6 +162,14 @@ const EditCampusView = ({ campus, handleSubmit }) => {
             <br />
             <br />
           </form>
+            {/* Back to Home Button */}
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+            <Link to="/">
+              <Button variant="contained" color="secondary">
+                Back to Home
+              </Button>
+            </Link>
+            </div>
         </div>
       </div>
     </div>

@@ -33,8 +33,16 @@ const CampusView = (props) => {
     <div>
       {/* see details about a single campus, with all data fields, including enrolled students (if any)*/}
       <h1>{campus.name}</h1>
-      <p>{campus.address}</p>
-      <p>{campus.description}</p>
+
+      <img 
+        src={campus.imageUrl || 'default-campus-image.jpg'}  // Use a default image if none exists
+        alt={campus.name}
+        style={{ width: "200px", height: "auto", borderRadius: "8px" }}
+      />
+
+      <p><strong>Address:</strong> {campus.address}</p>
+      <p><strong>Description:</strong> {campus.description}</p>
+
       {/*see an informative message if no students are enrolled at that campus */}
       <h2>Enrolled Students:</h2>
       {campus.students.length === 0 ? (
@@ -42,11 +50,11 @@ const CampusView = (props) => {
         ) : (
         /*navigate to the Single Student View and see any student's information */
       campus.students.map((student)=> {
-        const name = `${student.firstname} ${student.lastname}`;
+        const fullname = `${student.firstname} ${student.lastname}`;
         return (
           <div key={student.id}>
             <Link to={`/student/${student.id}`}>
-              <h3>{name}</h3>
+              <h3>{fullname}</h3>
             </Link>  
             {/* Remove student button */}
             <button onClick={() => handleRemoveStudent(student.id)}>Remove Student</button>

@@ -32,7 +32,7 @@ const AllCampusesView = (props) => {
     <div>
       <p>There are no campuses.</p>
       {/* add action button*/}
-      <Link to={`newcampus`}>
+      <Link to={`/newcampus`}>
         <button>Add New Campus</button>
       </Link>
       
@@ -51,6 +51,12 @@ const AllCampusesView = (props) => {
           <Link to={`/campus/${campus.id}`}>
             <h2>{campus.name}</h2>
           </Link>
+          {/* Display the campus image, or a default image if not available */}
+          <img 
+            src={campus.image || 'default-image.jpg'} 
+            alt={campus.name} 
+            style={{ width: '200px', height: 'auto', borderRadius: '8px' }} 
+          />
           <h4>Campus id: {campus.id}</h4>
           <p>{campus.address}</p>
           <p>{campus.description}</p>
