@@ -121,18 +121,21 @@ export const deleteCampusThunk = (campusId) => {
 //   };
 // };
 
-// Updated editCampusThunk with an async API call
+// Thunk to update campus
 export const editCampusThunk = (updatedCampus) => async (dispatch) => {
   try {
-    // API "put" call to update campus based on "id" and the campus object
-    let response = await axios.put(`/api/campuses/${updatedCampus.id}`, updatedCampus);
-    
-    // Assuming the response contains the updated campus, dispatch the action
-    dispatch({
-      type: 'EDIT_CAMPUS',
-      payload: response.data,  // Ensure that response.data contains the updated campus
-    });
+    // API "PUT" request to update campus
+    const response = await axios.put(`/api/campuses/${updatedCampus.id}`, updatedCampus);
+
+    // Dispatch success action with updated campus
+    dispatch({ type: "EDIT_CAMPUS", payload: response.data });
+
+    // Optionally, return the updated campus data
+    return response.data;
   } catch (err) {
     console.error("Error updating campus:", err);
+    // Dispatch error action if needed
+    dispatch({ type: "EDIT_CAMPUS_ERROR", payload: err.message });
   }
 };
+
